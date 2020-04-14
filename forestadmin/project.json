@@ -1,0 +1,110 @@
+{
+  "project": {
+    "name": "sd-0x-block13-project-movie-card-library-stateful",
+    "description": "Projeto de Movie Cards Library Stateful",
+    "enabled": true,
+    "deadline": "YYYY-MM-DD 17:10:00",
+    "requirements": [
+      {
+        "description": "Crie um componente chamado `SearchBar`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um formulário dentro de `SearchBar`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um input do tipo texto dentro do formulário em `SearchBar`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um input do tipo checkbox dentro do formulário em `SearchBar`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um select dentro do formulário em `SearchBar`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Crie um componente chamado `AddMovie`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Configure o estado inicial do componente `AddMovie`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um formulário dentro de `AddMovie`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um input do tipo texto dentro do formulário em `AddMovie` para obter o título do novo filme",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um input do tipo texto dentro do formulário em `AddMovie` para obter o subtítulo do novo filme",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um input do tipo texto dentro do formulário em `AddMovie` para obter o caminho da imagem do novo filme",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize uma `textarea` dentro do formulário em `AddMovie` para obter a sinopse do novo filme",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um `input` do tipo `number` dentro do formulário em `AddMovie` para obter a avaliação do novo filme",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um `select` do formulário em `AddMovie` para selecionar o gênero do novo filme",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize um botão do formulário em `AddMovie` para fazer uso dos dados do novo filme, contidos no estado de `AddMovie`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Crie um componente chamado `MovieLibrary`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Configure o estado inicial do componente `MovieLibray`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize `SearchBar` dentro de `MovieLibrary`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize `MovieList` dentro de `MovieLibrary`",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Renderize `AddMovie` dentro de `MovieLibrary`",
+        "enabled": true,
+        "bonus": false
+      }
+    ]
+  }
+}
