@@ -1,1 +1,0 @@
-# sd-0x-block13-project-movie-card-library-stateful-tests
