@@ -32,6 +32,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^10.4.8",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "eslint": "^6.6.0",
