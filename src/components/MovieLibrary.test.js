@@ -1,5 +1,4 @@
 import React from 'react';
-// import { mount, shallow } from 'enzyme';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import event from '@testing-library/user-event';
@@ -36,16 +35,6 @@ const movies = [
   },
 ];
 
-// let movieLibraryWrapper;
-
-// const movieLibrary = () => {
-//   if (!movieLibraryWrapper) {
-//     movieLibraryWrapper = render(<MovieLibrary movies={movies} />);
-//   }
-//   return movieLibraryWrapper;
-// };
-
-// const beforeEachUnitTest = () => (movieLibraryWrapper = undefined);
 
 describe('<MovieLibrary /> component', () => {
   it('renders without crashing', () => {
@@ -54,8 +43,6 @@ describe('<MovieLibrary /> component', () => {
 });
 
 describe('<MovieLibrary /> component initial state', () => {
-  // beforeEach(() => beforeEachUnitTest());
-
   it('initializes `searchText` in state with an empty string', () => {
     const { getByTestId } = render(<MovieLibrary movies={movies} />);
     const searchText = getByTestId('text-input');
@@ -82,8 +69,6 @@ describe('<MovieLibrary /> component initial state', () => {
 });
 
 describe('<MovieLibrary /> should render <SearchBar />', () => {
-  // beforeEach(() => beforeEachUnitTest());
-
   it('renders a `SearchBar` component', () => {
     const { getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const searchBar = getAllByTestId('search-bar-form');
@@ -91,84 +76,23 @@ describe('<MovieLibrary /> should render <SearchBar />', () => {
   });
 
   it('passes `searchText` from state as the prop `searchText` of `SearchBar`', () => {
-    // whatever is the value of searchText in state
     const { getByTestId } = render(<MovieLibrary movies={movies} />);
     const searchText = getByTestId('text-input');
     event.type(searchText, 'My Search Text');
 
 
-    // is gonna be pased to SearchBar in the prop `searchText`
     expect(searchText).toHaveValue('My Search Text');
   });
 
-  // MovieLibrary must pass to SearchBar a callback in the prop
-  // onSearchTextChange. This callback should be called by SearchBar when the
-  // user types on the input text field.
-  // The callback receives an event containing, among other things, the typed
-  // text. The callback should update MovieLibrary's state with the typed text.
-
-  // it('passes to `SearchBar` a callback to update `searchText` in state', () => {
-  //   // TODO: ESSE IT É REALMENTE NESCESSÁRIO ? FICOU REPETITIVO
-  //   // Initially, searchText in MovieLibrary's state is empty
-  //   expect(movieLibrary().state().searchText).toBe('');
-
-  //   // then the callback is called with the typed text
-  //   const event = { target: { value: 'new input text' } };
-  //   const searchBar = movieLibrary().find('SearchBar');
-  //   searchBar.props().onSearchTextChange(event);
-
-  //   // and MovieLibrary's state should change
-  //   expect(movieLibrary().state().searchText).toBe('new input text');
-  // });
 
   it('passes `bookmarkedOnly` from state as the prop `bookmarkedOnly` of `SearchBar`', () => {
-    // whatever is the value of bookmarkedOnly in state
     const { getByTestId } = render(<MovieLibrary movies={movies} />);
     const bookmarkedOnly = getByTestId('checkbox-input');
-    // movieLibrary().setState({ bookmarkedOnly: true });
     event.click(bookmarkedOnly);
-    // const searchBar = movieLibrary().find('SearchBar');
     expect(bookmarkedOnly).toBeChecked();
-    // is gonna be pased to SearchBar in the prop `bookmarkedOnly`
-    // expect(searchBar.props().bookmarkedOnly).toBe(true);
   });
 
-  // MovieLibrary must pass to SearchBar a callback in the prop
-  // onBookmarkedChange. This callback should be called by SearchBar when the
-  // user toggles the checkbox field to show only bookmarked fields.
-  // The callback receives an event containing, among other things, the value
-  // of the checkbox.The callback should update MoiveLibrary's state with the
-  // // value of the checkbox.
-  // it('passes to `SearchBar` a callback to update `bookmarkedOnly` in state', () => {
-  //   // Initially, MovieLibrary's state field bookmarkedOnly is false
-  //   expect(movieLibrary().state().bookmarkedOnly).toBe(false);
-
-  //   // then the callback is called with the new checkbox value
-  //   const event = { target: { checked: true } };
-  //   const searchBar = movieLibrary().find('SearchBar');
-  //   searchBar.props().onBookmarkedChange(event);
-
-  //   // and MovieLibrary's state should change
-  //   expect(movieLibrary().state().bookmarkedOnly).toBe(true);
-  // });
-
-  // it('passes `selectedGenre` from state as the prop `selectedGenre` of `SearchBar`', () => {
-  //   // whatever is the value of selectedGenre in state
-  //   movieLibrary().setState({ selectedGenre: 'fantasy' });
-  //   const searchBar = movieLibrary().find('SearchBar');
-
-  //   // is gonna be pased to SearchBar in the prop `selectedGenre`
-  //   expect(searchBar.props().selectedGenre).toBe('fantasy');
-  // });
-
-  // MovieLibrary must pass to SearchBar a callback in the prop
-  // onSelectedGenreChange. This callback should be called by SearchBar when the
-  // user changes the select with genre options.
-  // The callback receives an event containing, among other things, the value
-  // of the selected option. The callback should update MoiveLibrary's state
-  // with the selected option.
   it('passes to `SearchBar` a callback that updates `MovieLibrary`s state', () => {
-    // Initially, MovieLibrary's state field selectedGenere is empty
     const { getByTestId } = render(<MovieLibrary movies={movies} />);
     const selectInput = getByTestId('select-input');
     expect(selectInput).toHaveValue('');
@@ -247,13 +171,6 @@ describe('<MovieLibrary /> should render <MovieList />', () => {
     expect(movieCardTitle).toHaveTextContent(movies[0].title);
   });
 
-  // it('it does not filter the movies passed to MovieList', () => {
-  //   movieLibrary().setState({ selectedGenre: '' });
-  //   const passedMovies = movieLibrary().find('MovieList').props().movies;
-
-  //   expect(passedMovies.length).toBe(3);
-  //   expect(passedMovies).toEqual(movies);
-  // });
 
   it('passes to MovieList only movies matching the genre', () => {
     const { getByTestId, getAllByTestId } = render(<MovieLibrary movies={movies} />);
@@ -275,30 +192,19 @@ describe('<MovieLibrary /> should render <AddMovie />', () => {
     expect(addMovieForm).toHaveLength(1);
   });
 
-  // MovieLibrary must pass to AddMovie a callback in the prop
-  // onClick. This callback should be called by AddMovie when the
-  // user clicks on the "Adicionar Filme" to create the new movie.
-  // The callback receives the movie to be inserted.
-  // The callback should update MovieLibrary's state,
-  // by adding the new movie at the end of the `movies`.
   it('passes to `AddMovie` a callback to enable adding the new movie at the end of the movies list', () => {
-    // Initially, MovieLibrary's state field selectedGenere is empty
     const { getByTestId, getAllByTestId } = render(<MovieLibrary movies={movies} />);
-    // const addMovie = wrapper.find('AddMovie');
-    // const addMovieButton = addMovie.find('form button');
+
     const newMovie = {
       subtitle: 'Harry Potter magical subtitle',
       title: 'Harry Potter VII',
-      imagePath: 'http://localhost:3000/images/Harry_Potter.jpg',
       storyline: 'Harry dies',
       rating: '4.9',
       genre: 'action',
     };
 
     let movieCards = getAllByTestId('movie-card');
-    // const moviesList = () => wrapper.state('movies');
 
-    // addMovie.setState(newMovie);
 
     expect(movieCards).toHaveLength(movies.length);
 

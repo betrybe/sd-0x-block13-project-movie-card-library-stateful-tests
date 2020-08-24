@@ -1,5 +1,4 @@
 import React from 'react';
-// import { shallow } from 'enzyme';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import event from '@testing-library/user-event';
@@ -58,14 +57,11 @@ describe('<AddMovie /> component', () => {
   });
 
   it('renders a form', () => {
-    // TODO:adicionar requisito de colocar datatest-id no form
     expect(form).toHaveLength(1);
   });
 });
 
 describe('<AddMovie /> component title input', () => {
-  // TODO: ADICIONAR DATA-TESTID NO INPUT DE TITULO e na label
-
   it('renders a text input so as the user can type the movie title', () => {
     expect(titleInput).toBeInTheDocument();
   });
@@ -86,10 +82,6 @@ describe('<AddMovie /> component title input', () => {
 });
 
 describe('<AddMovie /> component subtitle input', () => {
-  // beforeEach(() => beforeEachUnitTest());
-  // TODO: ADICIONAR DATA-TESTID NO INPUT DE subtitle e na label
-  // const subtitleInput = () => addMovie().find('form input[type="text"]').at(1);
-
   it('renders a subtitle input so as the user can type the movie subtitle', () => {
     expect(subtitleInput).toBeInTheDocument();
     expect(subtitleInputLabel).toBeInTheDocument();
@@ -111,12 +103,6 @@ describe('<AddMovie /> component subtitle input', () => {
 });
 
 describe('<AddMovie /> component image path input', () => {
-  // beforeEach(() => beforeEachUnitTest());
-
-  // const imageInput = () => addMovie().find('form input[type="text"]').at(2);
-  // TODO: ADICIONAR DATATESTID NA IMAGEM E SUA LABEL
-
-
   it('renders an image input so as the user can type the movie image path', () => {
     expect(imageInput).toBeInTheDocument();
     expect(imageInputLabel).toBeInTheDocument();
@@ -137,11 +123,6 @@ describe('<AddMovie /> component image path input', () => {
 });
 
 describe('<AddMovie /> component storyline input', () => {
-  // beforeEach(() => beforeEachUnitTest());
-  // const storylineInput = () => addMovie().find('form textarea');
-  // TODO: adicionar datatestid label de storyline
-
-
   it('renders a storyline input so as the user can type the movie storyline', () => {
     expect(storylineInput).toBeInTheDocument();
     expect(storylineInputLabel).toBeInTheDocument();
@@ -163,8 +144,6 @@ describe('<AddMovie /> component storyline input', () => {
 });
 
 describe('<AddMovie /> component rating input', () => {
-  // TODO: adicionar datatestid label de storyline
-
   it('renders a rating input so as the user can type the movie rating', () => {
     expect(ratingInput).toBeInTheDocument();
     expect(ratingInputLabel).toBeInTheDocument();
@@ -179,24 +158,19 @@ describe('<AddMovie /> component rating input', () => {
   });
 
   it('updates the component state when movie rating input changes', () => {
-    // const simulatedEvent = { target: { value: '1.5' } };
     event.type(ratingInput, '1.5');
 
-    // ratingInput().simulate('change', simulatedEvent);
     expect(ratingInput).toHaveValue(1.5);
   });
 });
 
 describe('<AddMovie /> component genre selection', () => {
-  // beforeEach(() => beforeEachUnitTest());
-// TODO: ADICIONAR DATA-TESTID NO GENRE
   const options = [
     { value: 'action', text: 'Ação' },
     { value: 'comedy', text: 'Comédia' },
     { value: 'thriller', text: 'Suspense' },
   ];
 
-  // const genreSelection = () => addMovie().find('form select');
 
   it('renders a movie genre selection so as the user can select the movie genre', () => {
     expect(genreInput).toBeInTheDocument();
@@ -227,15 +201,6 @@ describe('<AddMovie /> component genre selection', () => {
 });
 
 describe('<AddMovie /> component creation button', () => {
-  // const currentState = {
-  //   subtitle: 'Magical subtitle',
-  //   title: 'Harry Potter I',
-  //   imagePath: '',
-  //   storyline: 'The boy who lived.',
-  //   rating: 3.5,
-  //   genre: 'action',
-  // };
-
   it('has "Adicionar filme" as content', () => {
     expect(sendButton).toHaveTextContent('Adicionar filme');
   });

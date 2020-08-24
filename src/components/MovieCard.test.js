@@ -29,7 +29,6 @@ describe('<MovieCard /> component', () => {
 
     const title = getByText('Movie Title 1');
     expect(title).toBeInTheDocument();
-    // expect(wrapper.find('h4').text()).toBe('Movie Title 1');
   });
 
   it('renders the movie subtitle inside a tag', () => {
@@ -37,8 +36,6 @@ describe('<MovieCard /> component', () => {
 
     const subtitle = getByText('Movie Subtitle 1');
     expect(subtitle).toBeInTheDocument();
-
-    // expect(wrapper.find('h5').text()).toBe('Movie Subtitle 1');
   });
 
 
@@ -46,12 +43,9 @@ describe('<MovieCard /> component', () => {
     const { getByText } = render(<MovieCard movie={movie} />);
     const storyline = getByText('Movie Storyline 1');
     expect(storyline).toBeInTheDocument();
-
-    // expect(wrapper.find('p').text()).toBe('Movie Storyline 1');
   });
 
   it('renders a `Rating` component', () => {
-    // TODO: Adicionar data-testid=rating no modelo padrão
     const { getAllByTestId } = render(<MovieCard movie={movie} />);
     const rating = getAllByTestId('rating');
 

@@ -41,20 +41,6 @@ describe('<SearchBar /> component', () => {
 describe('<SearchBar /> component Form', () => {
   beforeEach(() => beforeEachUnitTest());
 
-  // const searchBar = () => (
-  //   shallow(
-  //     <SearchBar
-  //       searchText={props.searchText}
-  //       onSearchTextChange={props.onSearchTextChange}
-  //       bookmarkedOnly={props.bookmarkedOnly}
-  //       onBookmarkedChange={props.onBookmarkedChange}
-  //       selectedGenre={props.selectedGenre}
-  //       onSelectedGenreChange={props.onSelectedGenreChange}
-  //     />,
-  //   )
-  // );
-
-  // TODO: Adicionar data-testId no form
 
   it('renders a form', () => {
     const { getAllByTestId } = searchBar();
@@ -66,21 +52,6 @@ describe('<SearchBar /> component Form', () => {
 describe('<SearchBar /> component Text input', () => {
   beforeEach(() => beforeEachUnitTest());
 
-  // const searchBar = () => (
-  //   shallow(
-  //     <SearchBar
-  //       searchText={props.searchText}
-  //       onSearchTextChange={props.onSearchTextChange}
-  //       bookmarkedOnly={props.bookmarkedOnly}
-  //       onBookmarkedChange={props.onBookmarkedChange}
-  //       selectedGenre={props.selectedGenre}
-  //       onSelectedGenreChange={props.onSelectedGenreChange}
-  //     />,
-  //   )
-  // );
-
-  // const textInput = () => searchBar().find('form input[type="text"]');
-  // TODO: Adicionar data-testId no form
 
   it('renders a text input inside the form', () => {
     const { getAllByTestId } = searchBar();
@@ -112,18 +83,6 @@ describe('<SearchBar /> component Text input', () => {
 describe('<SearchBar /> component Bookmarked checkbox', () => {
   beforeEach(() => beforeEachUnitTest());
 
-  // const searchBar = () => (
-  //   shallow(
-  //     <SearchBar
-  //       searchText={props.searchText}
-  //       onSearchTextChange={props.onSearchTextChange}
-  //       bookmarkedOnly={props.bookmarkedOnly}
-  //       onBookmarkedChange={props.onBookmarkedChange}
-  //       selectedGenre={props.selectedGenre}
-  //       onSelectedGenreChange={props.onSelectedGenreChange}
-  //     />,
-  //   )
-  // );
 
   it('renders a checkbox input inside the form', () => {
     const { getAllByTestId } = searchBar();
@@ -156,18 +115,6 @@ describe('<SearchBar /> component Bookmarked checkbox', () => {
 describe('<SearchBar /> component Movie Genre select', () => {
   beforeEach(() => beforeEachUnitTest());
 
-  // const searchBar = () => (
-  //   shallow(
-  //     <SearchBar
-  //       searchText={props.searchText}
-  //       onSearchTextChange={props.onSearchTextChange}
-  //       bookmarkedOnly={props.bookmarkedOnly}
-  //       onBookmarkedChange={props.onBookmarkedChange}
-  //       selectedGenre={props.selectedGenre}
-  //       onSelectedGenreChange={props.onSelectedGenreChange}
-  //     />,
-  //   )
-  // );
 
   it('renders a select inside the form', () => {
     const { getAllByTestId } = searchBar();

@@ -1,5 +1,4 @@
 import React from 'react';
-// import { mount } from 'enzyme';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
@@ -46,14 +45,4 @@ describe('<MovieList /> component', () => {
 
     expect(movieCards).toHaveLength(3);
   });
-
-  // it('sets the movie title as the key in each rendered `MovieCard`', () => {
-  //   const wrapper = mount(<MovieList movies={movies} />);
-  //   const movieCards = wrapper.find('MovieCard');
-
-  //   movieCards.forEach((movieCard, index) => {
-  //     console.log(movieCard.key());
-  //     expect(movieCard.key()).toEqual(movies[index].title);
-  //   });
-  // });
 });
