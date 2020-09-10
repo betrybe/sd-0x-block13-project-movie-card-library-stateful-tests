@@ -1,16 +1,18 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
 import Header from './Header';
 
 describe('<Header /> component', () => {
   it('renders without crashing', () => {
-    shallow(<Header />);
+    render(<Header />);
   });
 
-  it('it includes the text `Movie Cards Library` inside a h1 tag', () => {
-    const wrapper = shallow(<Header />);
+  it('it includes the text `Movie Cards Library` inside a tag', () => {
+    const { getByRole } = render(<Header />);
+    const header = getByRole('heading');
 
-    expect(wrapper.find('header h1').text()).toBe('Movie Cards Library');
+    expect(header).toHaveTextContent('Movie Cards Library');
   });
 });

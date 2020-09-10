@@ -1,5 +1,6 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
 import MovieList from './MovieList';
 
@@ -35,21 +36,13 @@ describe('<MovieList /> component', () => {
   ];
 
   it('renders without crashing', () => {
-    shallow(<MovieList movies={movies} />);
+    render(<MovieList movies={movies} />);
   });
 
   it('renders a `MovieCard` component for each object in the array', () => {
-    const wrapper = shallow(<MovieList movies={movies} />);
+    const { getAllByTestId } = render(<MovieList movies={movies} />);
+    const movieCards = getAllByTestId('movie-card');
 
-    expect(wrapper.find('MovieCard').length).toEqual(3);
-  });
-
-  it('sets the movie title as the key in each rendered `MovieCard`', () => {
-    const wrapper = mount(<MovieList movies={movies} />);
-    const movieCards = wrapper.find('MovieCard');
-
-    movieCards.forEach((movieCard, index) => {
-      expect(movieCard.key()).toEqual(movies[index].title);
-    });
+    expect(movieCards).toHaveLength(3);
   });
 });

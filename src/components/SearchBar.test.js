@@ -1,11 +1,13 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
+import event from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 
 import SearchBar from './SearchBar';
 
 let props;
 const searchBar = () => (
-  mount(
+  render(
     <SearchBar
       searchText={props.searchText}
       onSearchTextChange={props.onSearchTextChange}
@@ -39,131 +41,107 @@ describe('<SearchBar /> component', () => {
 describe('<SearchBar /> component Form', () => {
   beforeEach(() => beforeEachUnitTest());
 
-  const searchBar = () => (
-    mount(
-      <SearchBar
-        searchText={props.searchText}
-        onSearchTextChange={props.onSearchTextChange}
-        bookmarkedOnly={props.bookmarkedOnly}
-        onBookmarkedChange={props.onBookmarkedChange}
-        selectedGenre={props.selectedGenre}
-        onSelectedGenreChange={props.onSelectedGenreChange}
-      />,
-    )
-  );
 
   it('renders a form', () => {
-    expect(searchBar().find('form').length).toEqual(1);
+    const { getAllByTestId } = searchBar();
+    const form = getAllByTestId('search-bar-form');
+    expect(form).toHaveLength(1);
   });
 });
 
 describe('<SearchBar /> component Text input', () => {
   beforeEach(() => beforeEachUnitTest());
 
-  const searchBar = () => (
-    mount(
-      <SearchBar
-        searchText={props.searchText}
-        onSearchTextChange={props.onSearchTextChange}
-        bookmarkedOnly={props.bookmarkedOnly}
-        onBookmarkedChange={props.onBookmarkedChange}
-        selectedGenre={props.selectedGenre}
-        onSelectedGenreChange={props.onSelectedGenreChange}
-      />,
-    )
-  );
-
-  const textInput = () => searchBar().find('form input[type="text"]');
 
   it('renders a text input inside the form', () => {
-    expect(textInput().length).toBe(1);
+    const { getAllByTestId } = searchBar();
+    const textInput = getAllByTestId('text-input');
+    expect(textInput).toHaveLength(1);
   });
 
   it('has a label with the text "Inclui o texto"', () => {
-    expect(searchBar().find('label').at(0).text()).toMatch('Inclui o texto');
+    const { getAllByTestId } = searchBar();
+    const textInputLabel = getAllByTestId('text-input-label');
+    expect(textInputLabel).toHaveLength(1);
+    expect(textInputLabel[0]).toHaveTextContent('Inclui o texto');
   });
 
   it('passes the `searchText` prop as the value of the input', () => {
-    expect(textInput().prop('value')).toBe(props.searchText);
+    const { getByTestId } = searchBar();
+    const textInput = getByTestId('text-input');
+    expect(textInput).toHaveValue(props.searchText);
   });
 
   it('passes the `onSearchTextChange` prop to the `onChange` attribute of the input', () => {
-    expect(textInput().prop('onChange')).toBe(props.onSearchTextChange);
+    const { getByTestId } = searchBar();
+    const textInput = getByTestId('text-input');
+    event.type(textInput, 'change');
+    expect(props.onSearchTextChange).toHaveBeenCalledTimes(6);
   });
 });
 
 describe('<SearchBar /> component Bookmarked checkbox', () => {
   beforeEach(() => beforeEachUnitTest());
 
-  const searchBar = () => (
-    mount(
-      <SearchBar
-        searchText={props.searchText}
-        onSearchTextChange={props.onSearchTextChange}
-        bookmarkedOnly={props.bookmarkedOnly}
-        onBookmarkedChange={props.onBookmarkedChange}
-        selectedGenre={props.selectedGenre}
-        onSelectedGenreChange={props.onSelectedGenreChange}
-      />,
-    )
-  );
 
   it('renders a checkbox input inside the form', () => {
-    expect(searchBar().find('form input[type="checkbox"]').length).toBe(1);
+    const { getAllByTestId } = searchBar();
+    const checkboxInput = getAllByTestId('checkbox-input');
+    expect(checkboxInput).toHaveLength(1);
   });
 
   it('has a label with the text "Mostrar somente favoritos"', () => {
-    expect(searchBar().find('label').at(1).text())
-      .toMatch('Mostrar somente favoritos');
+    const { getAllByTestId } = searchBar();
+    const checkboxInputLabel = getAllByTestId('checkbox-input-label');
+    expect(checkboxInputLabel).toHaveLength(1);
+    expect(checkboxInputLabel[0]).toHaveTextContent('Mostrar somente favoritos');
   });
 
   it('passes the `bookmarkedOnly` prop to the `checked` attribute of the input', () => {
-    const input = searchBar().find('form input[type="checkbox"]');
+    const { getByTestId } = searchBar();
+    const checkboxInput = getByTestId('checkbox-input');
 
-    expect(input.prop('checked')).toBe(props.bookmarkedOnly);
+    expect(checkboxInput).toBeChecked();
   });
 
-  it('passes the `onBookmarkedChange` to the `onChange` attribute of text input', () => {
-    const input = searchBar().find('form input[type="checkbox"]');
-
-    expect(input.prop('onChange')).toEqual(props.onBookmarkedChange);
+  it('passes the `onBookmarkedChange` to the `onChange` attribute of checkbox input', () => {
+    const { getByTestId } = searchBar();
+    const checkboxInput = getByTestId('checkbox-input');
+    event.click(checkboxInput);
+    expect(props.onBookmarkedChange).toHaveBeenCalledTimes(1);
   });
 });
 
 describe('<SearchBar /> component Movie Genre select', () => {
   beforeEach(() => beforeEachUnitTest());
 
-  const searchBar = () => (
-    mount(
-      <SearchBar
-        searchText={props.searchText}
-        onSearchTextChange={props.onSearchTextChange}
-        bookmarkedOnly={props.bookmarkedOnly}
-        onBookmarkedChange={props.onBookmarkedChange}
-        selectedGenre={props.selectedGenre}
-        onSelectedGenreChange={props.onSelectedGenreChange}
-      />,
-    )
-  );
 
   it('renders a select inside the form', () => {
-    expect(searchBar().find('form select').length).toEqual(1);
+    const { getAllByTestId } = searchBar();
+    const selectInput = getAllByTestId('select-input');
+    expect(selectInput).toHaveLength(1);
   });
 
   it('has a label with the text "Filtrar por gênero"', () => {
-    expect(searchBar().find('label').at(2).text()).toMatch('Filtrar por gênero');
+    const { getAllByTestId } = searchBar();
+    const selectInputLabel = getAllByTestId('select-input-label');
+    expect(selectInputLabel).toHaveLength(1);
+    expect(selectInputLabel[0]).toHaveTextContent('Filtrar por gênero');
   });
 
   it('passes the `selectedGenre` prop as the value of the select', () => {
-    const select = searchBar().find('form select');
+    const { getByTestId } = searchBar();
+    const selectInput = getByTestId('select-input');
 
-    expect(select.prop('value')).toEqual(props.selectedGenre);
+    expect(selectInput).toHaveValue(props.selectedGenre);
   });
 
   it('passes the `onSelectedGenreChange` prop to the `onChange` attribute of the select', () => {
-    const select = searchBar().find('form select');
+    const { getByTestId } = searchBar();
+    const selectInput = getByTestId('select-input');
+    event.selectOptions(selectInput, 'comedy');
 
-    expect(select.prop('onChange')).toEqual(props.onSelectedGenreChange);
+    expect(props.onSelectedGenreChange).toHaveBeenCalledTimes(1);
   });
 
   it('renders 4 options inside the select with expected text and values', () => {
@@ -173,12 +151,13 @@ describe('<SearchBar /> component Movie Genre select', () => {
       { text: 'Comédia', value: 'comedy' },
       { text: 'Suspense', value: 'thriller' },
     ];
-    const options = searchBar().find('form select option');
+    const { getAllByTestId } = searchBar();
+    const selectOptions = getAllByTestId('select-option');
 
-    expect(options.length).toEqual(4);
-    options.forEach((option, index) => {
-      expect(option.text()).toEqual(genreOptions[index].text);
-      expect(option.props().value).toEqual(genreOptions[index].value);
+    expect(selectOptions).toHaveLength(4);
+    selectOptions.forEach((option, index) => {
+      expect(option).toHaveTextContent(genreOptions[index].text);
+      expect(option).toHaveValue(genreOptions[index].value);
     });
   });
 });

@@ -1,6 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
-
+import { render, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import event from '@testing-library/user-event';
 import AddMovie from './AddMovie';
 
 const initialState = {
@@ -12,248 +13,229 @@ const initialState = {
   genre: 'action',
 };
 
-let wrapper;
-let props;
+const onClick = jest.fn();
+let form;
+let titleInput;
+let titleInputLabel;
+let subtitleInput;
+let subtitleInputLabel;
+let imageInput;
+let imageInputLabel;
+let storylineInput;
+let storylineInputLabel;
+let ratingInput;
+let ratingInputLabel;
+let genreInput;
+let genreInputLabel;
+let genreOptions;
+let sendButton;
 
-const addMovie = () => {
-  if (!wrapper) {
-    wrapper = mount(<AddMovie onClick={props.onClick} />);
-  }
-  return wrapper;
-};
 
-const beforeEachUnitTest = () => {
-  wrapper = undefined;
-  props = { onClick: jest.fn() };
-};
+beforeEach(() => {
+  const { getAllByTestId, getByTestId } = render(<AddMovie onClick={onClick} />);
+  form = getAllByTestId('add-movie-form');
+  titleInput = getByTestId('title-input');
+  titleInputLabel = getByTestId('title-input-label');
+  subtitleInput = getByTestId('subtitle-input');
+  subtitleInputLabel = getByTestId('subtitle-input-label');
+  imageInput = getByTestId('image-input');
+  imageInputLabel = getByTestId('image-input-label');
+  storylineInput = getByTestId('storyline-input');
+  storylineInputLabel = getByTestId('storyline-input-label');
+  ratingInput = getByTestId('rating-input');
+  ratingInputLabel = getByTestId('rating-input-label');
+  genreInput = getByTestId('genre-input');
+  genreInputLabel = getByTestId('genre-input-label');
+  genreOptions = getAllByTestId('genre-option');
+  sendButton = getByTestId('send-button');
+});
+
 
 describe('<AddMovie /> component', () => {
-  beforeEach(() => beforeEachUnitTest());
-
   it('renders without crashing', () => {
-    addMovie();
+    render(<AddMovie onClick={() => jest.fn()} />);
   });
 
   it('renders a form', () => {
-    expect(addMovie().find('form').length).toEqual(1);
-  });
-});
-
-describe('<AddMovie /> component initial state', () => {
-  beforeEach(() => beforeEachUnitTest());
-
-  it('sets expected initial state', () => {
-    expect(addMovie().state()).toEqual(initialState);
-  });
-});
-
-describe('<AddMovie /> component Form', () => {
-  beforeEach(() => beforeEachUnitTest());
-
-  it('renders a form', () => {
-    expect(addMovie().find('form').length).toEqual(1);
+    expect(form).toHaveLength(1);
   });
 });
 
 describe('<AddMovie /> component title input', () => {
-  beforeEach(() => beforeEachUnitTest());
-
-  const titleInput = () => addMovie().find('form input[type="text"]').at(0);
-
   it('renders a text input so as the user can type the movie title', () => {
-    expect(titleInput().exists()).toBeTruthy();
+    expect(titleInput).toBeInTheDocument();
   });
 
   it('renders the label "Título" for the movie title input', () => {
-    expect(addMovie().find('label').at(0).text()).toEqual('Título');
+    expect(titleInputLabel).toHaveTextContent('Título');
   });
 
   it('the title input initial value, "", comes from the AddMovie initial state, via "title"', () => {
-    expect(titleInput().prop('value')).toEqual(initialState.title);
+    expect(titleInput).toHaveValue(initialState.title);
   });
 
   it('updates the component state when title input changes', () => {
-    const simulatedEvent = { target: { value: 'my awesome movie title', name: 'title'  } };
+    event.type(titleInput, 'my awesome movie title');
 
-    titleInput().simulate('change', simulatedEvent);
-    expect(addMovie().state('title')).toEqual('my awesome movie title');
+    expect(titleInput).toHaveValue('my awesome movie title');
   });
 });
 
 describe('<AddMovie /> component subtitle input', () => {
-  beforeEach(() => beforeEachUnitTest());
-
-  const subtitleInput = () => addMovie().find('form input[type="text"]').at(1);
-
   it('renders a subtitle input so as the user can type the movie subtitle', () => {
-    expect(subtitleInput().exists()).toBeTruthy();
+    expect(subtitleInput).toBeInTheDocument();
+    expect(subtitleInputLabel).toBeInTheDocument();
   });
 
   it('renders the label "Subtítulo" for the movie subtitle input', () => {
-    expect(addMovie().find('label').at(1).text()).toEqual('Subtítulo');
+    expect(subtitleInputLabel).toHaveTextContent('Subtítulo');
   });
 
   it('the subtitle input initial value, "", comes from the AddMovie initial state, via "subtitle"', () => {
-    expect(subtitleInput().prop('value')).toEqual(initialState.subtitle);
+    expect(subtitleInput).toHaveValue(initialState.subtitle);
   });
 
   it('updates the component state when subtitle input changes', () => {
-    const simulatedEvent = { target: { value: 'my awesome movie subtitle', name: 'subtitle'  } };
+    event.type(subtitleInput, 'my awesome movie subtitle');
 
-    subtitleInput().simulate('change', simulatedEvent);
-    expect(addMovie().state('subtitle')).toEqual('my awesome movie subtitle');
+    expect(subtitleInput).toHaveValue('my awesome movie subtitle');
   });
 });
 
 describe('<AddMovie /> component image path input', () => {
-  beforeEach(() => beforeEachUnitTest());
-
-  const imageInput = () => addMovie().find('form input[type="text"]').at(2);
-
   it('renders an image input so as the user can type the movie image path', () => {
-    expect(imageInput().exists()).toBeTruthy();
+    expect(imageInput).toBeInTheDocument();
+    expect(imageInputLabel).toBeInTheDocument();
   });
 
   it('renders the label "Imagem" for the movie image path input', () => {
-    expect(addMovie().find('label').at(2).text()).toEqual('Imagem');
+    expect(imageInputLabel).toHaveTextContent('Imagem');
   });
 
   it('the image input initial value, "", comes from the AddMovie initial state, via "imagePath"', () => {
-    expect(imageInput().prop('value')).toEqual(initialState.imagePath);
+    expect(imageInput).toHaveValue(initialState.imagePath);
   });
 
   it('updates the component state when image path input changes', () => {
-    const simulatedEvent = { target: { value: 'http://localhost:3000/images/Appleseed_Alpha.jpg', name: 'imagePath'  } };
-
-    imageInput().simulate('change', simulatedEvent);
-    expect(addMovie().state('imagePath')).toEqual('http://localhost:3000/images/Appleseed_Alpha.jpg');
+    event.type(imageInput, 'http://localhost:3000/images/Appleseed_Alpha.jpg');
+    expect(imageInput).toHaveValue('http://localhost:3000/images/Appleseed_Alpha.jpg');
   });
 });
 
 describe('<AddMovie /> component storyline input', () => {
-  beforeEach(() => beforeEachUnitTest());
-
-  const storylineInput = () => addMovie().find('form textarea');
-
   it('renders a storyline input so as the user can type the movie storyline', () => {
-    expect(storylineInput().length).toEqual(1);
+    expect(storylineInput).toBeInTheDocument();
+    expect(storylineInputLabel).toBeInTheDocument();
   });
 
   it('renders the label "Sinopse" for the movie storyline input', () => {
-    expect(addMovie().find('label').at(3).text()).toEqual('Sinopse');
+    expect(storylineInputLabel).toHaveTextContent('Sinopse');
   });
 
   it('the storyline input initial value, "", comes from the AddMovie initial state, via "storyline"', () => {
-    expect(storylineInput().prop('value')).toEqual(initialState.storyline);
+    expect(storylineInput).toHaveValue(initialState.storyline);
   });
 
   it('updates the component state when movie storyline input changes', () => {
-    const simulatedEvent = { target: { value: 'In the following movie, everyone dies.', name: 'storyline'  } };
-
-    storylineInput().simulate('change', simulatedEvent);
-    expect(addMovie().state('storyline')).toEqual('In the following movie, everyone dies.');
+    const message = 'In the following movie, everyone dies.';
+    fireEvent.change(storylineInput, { target: { value: message } });
+    expect(storylineInput).toHaveValue(message);
   });
 });
 
 describe('<AddMovie /> component rating input', () => {
-  beforeEach(() => beforeEachUnitTest());
-
-  const ratingInput = () => addMovie().find('form input[type="number"]');
-
   it('renders a rating input so as the user can type the movie rating', () => {
-    expect(ratingInput(addMovie()).length).toEqual(1);
+    expect(ratingInput).toBeInTheDocument();
+    expect(ratingInputLabel).toBeInTheDocument();
   });
 
   it('renders the label "Avaliação" for the movie rating input', () => {
-    expect(addMovie().find('label').at(4).text()).toEqual('Avaliação');
+    expect(ratingInputLabel).toHaveTextContent('Avaliação');
   });
 
   it('the rating input initial value, 0, comes from the AddMovie initial state, via "rating"', () => {
-    expect(ratingInput().prop('value')).toEqual(initialState.rating);
+    expect(ratingInput).toHaveValue(initialState.rating);
   });
 
   it('updates the component state when movie rating input changes', () => {
-    const simulatedEvent = { target: { value: '1.5', name: 'rating'  } };
+    event.type(ratingInput, '1.5');
 
-    ratingInput().simulate('change', simulatedEvent);
-    expect(addMovie().state('rating')).toEqual(1.5);
+    expect(ratingInput).toHaveValue(1.5);
   });
 });
 
 describe('<AddMovie /> component genre selection', () => {
-  beforeEach(() => beforeEachUnitTest());
-
-  const genreOptions = [
+  const options = [
     { value: 'action', text: 'Ação' },
     { value: 'comedy', text: 'Comédia' },
     { value: 'thriller', text: 'Suspense' },
   ];
 
-  const genreSelection = () => addMovie().find('form select');
 
   it('renders a movie genre selection so as the user can select the movie genre', () => {
-    expect(genreSelection().length).toEqual(1);
+    expect(genreInput).toBeInTheDocument();
+    expect(genreInputLabel).toBeInTheDocument();
+    expect(genreOptions).toHaveLength(options.length);
   });
 
   it('renders the label "Gênero" for the movie genre selection', () => {
-    expect(addMovie().find('label').at(5).text()).toMatch('Gênero');
+    expect(genreInputLabel).toHaveTextContent('Gênero');
   });
 
   it('renders all genre options inside the selection with expected text and values', () => {
-    const options = genreSelection().find('option');
-
-    expect(options.length).toEqual(genreOptions.length);
-    options.forEach((option, index) => {
-      expect(option.text()).toEqual(genreOptions[index].text);
-      expect(option.props().value).toEqual(genreOptions[index].value);
+    genreOptions.forEach((option, index) => {
+      expect(option).toHaveTextContent(genreOptions[index].text);
+      expect(option).toHaveValue(genreOptions[index].value);
     });
   });
 
   it('the genre selection initial value, "action", comes from the AddMovie initial state, via "genre"', () => {
-    expect(genreSelection(addMovie()).prop('value')).toEqual(initialState.genre);
+    expect(genreInput).toHaveValue(initialState.genre);
   });
 
   it('updates the component state when movie genre selection changes', () => {
-    const givenGenre = genreOptions[0];
-    const simulatedEvent = { target: { value: givenGenre, name: 'genre'  } };
+    event.selectOptions(genreInput, options[1].value);
 
-    genreSelection().simulate('change', simulatedEvent);
-    expect(addMovie().state('genre')).toEqual(givenGenre);
+    expect(genreInput).toHaveValue(genreOptions[1].value);
   });
 });
 
 describe('<AddMovie /> component creation button', () => {
-  beforeEach(() => beforeEachUnitTest());
-
-  const button = () => addMovie().find('form button');
-  const currentState = {
-    subtitle: 'Magical subtitle',
-    title: 'Harry Potter I',
-    imagePath: '',
-    storyline: 'The boy who lived.',
-    rating: 3.5,
-    genre: 'action',
-  };
-
   it('has "Adicionar filme" as content', () => {
-    expect(button().text()).toEqual('Adicionar filme');
+    expect(sendButton).toHaveTextContent('Adicionar filme');
   });
 
   it('calls `onClick` received as props from AddMovie, using its current state as parameter', () => {
-    addMovie().setState(currentState);
+    event.type(titleInput, 'Harry Potter I');
+    event.type(subtitleInput, 'Magical subtitle');
+    fireEvent.change(storylineInput, { target: { value: 'The boy who lived.' } });
+    event.type(storylineInput, 'The boy who lived.');
+    event.type(ratingInput, '3.5');
 
-    button().simulate('click');
+    event.click(sendButton);
 
-    expect(props.onClick).toHaveBeenCalledWith(currentState);
+    expect(onClick).toHaveBeenCalled();
   });
 
   it('resets AddMovie to its initial state when clicked by the user', () => {
-    addMovie().setState(currentState);
+    event.type(titleInput, 'Harry Potter I');
+    event.type(subtitleInput, 'Magical subtitle');
+    fireEvent.change(storylineInput, { target: { value: 'The boy who lived.' } });
+    event.type(ratingInput, '3.5');
+    event.selectOptions(genreInput, 'comedy');
 
-    expect(addMovie().state()).toEqual(currentState);
+    expect(titleInput).toHaveValue('Harry Potter I');
+    expect(subtitleInput).toHaveValue('Magical subtitle');
+    expect(storylineInput).toHaveValue('The boy who lived.');
+    expect(ratingInput).toHaveValue(3.5);
+    expect(genreInput).toHaveValue('comedy');
 
-    button().simulate('click');
+    event.click(sendButton);
 
-    expect(addMovie().state()).toEqual(initialState);
+    expect(titleInput).toHaveValue('');
+    expect(subtitleInput).toHaveValue('');
+    expect(storylineInput).toHaveValue('');
+    expect(ratingInput).toHaveValue(0);
+    expect(genreInput).toHaveValue('action');
   });
 });
