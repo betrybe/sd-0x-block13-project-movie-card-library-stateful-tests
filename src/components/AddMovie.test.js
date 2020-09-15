@@ -184,8 +184,8 @@ describe('<AddMovie /> component genre selection', () => {
 
   it('renders all genre options inside the selection with expected text and values', () => {
     genreOptions.forEach((option, index) => {
-      expect(option).toHaveTextContent(genreOptions[index].text);
-      expect(option).toHaveValue(genreOptions[index].value);
+      expect(option).toHaveTextContent(options[index].text);
+      expect(option).toHaveValue(options[index].value);
     });
   });
 
