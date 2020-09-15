@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import MovieCard from './MovieCard';
 import '@testing-library/jest-dom';
 
-describe('<MovieCard /> component', () => {
+describe('Verifica o componente <MovieCard />', () => {
   const movie = {
     title: 'Movie Title 1',
     subtitle: 'Movie Subtitle 1',
@@ -13,25 +13,25 @@ describe('<MovieCard /> component', () => {
   };
 
 
-  it('renders without crashing', () => {
+  it('Será validadado se o componente é renderizado com sucesso', () => {
     render(<MovieCard movie={movie} />);
   });
-
-  it('renders the movie image inside an `image` tag', () => {
+  
+  it('Será validado se o a imagem do filme é renderizada dentro de uma tag "img"', () => {
     const { getByRole } = render(<MovieCard movie={movie} />);
     const image = getByRole('img');
 
     expect(image).toHaveAttribute('src', 'images/movie_1');
   });
 
-  it('renders the movie title inside a tag', () => {
+  it('Será validado se o título do filme é renderizado com sucesso', () => {
     const { getByText } = render(<MovieCard movie={movie} />);
 
     const title = getByText('Movie Title 1');
     expect(title).toBeInTheDocument();
   });
 
-  it('renders the movie subtitle inside a tag', () => {
+  it('Será validado se o subtítulo do filme é renderizado com sucesso', () => {
     const { getByText } = render(<MovieCard movie={movie} />);
 
     const subtitle = getByText('Movie Subtitle 1');
@@ -39,20 +39,20 @@ describe('<MovieCard /> component', () => {
   });
 
 
-  it('renders the movie storyline inside a tag', () => {
+  it('Será validado se a sinopse do filme é renderizada com sucesso', () => {
     const { getByText } = render(<MovieCard movie={movie} />);
     const storyline = getByText('Movie Storyline 1');
     expect(storyline).toBeInTheDocument();
   });
 
-  it('renders a `Rating` component', () => {
+  it('Será validado se a avaliação do filme é renderizada com sucesso', () => {
     const { getAllByTestId } = render(<MovieCard movie={movie} />);
     const rating = getAllByTestId('rating');
 
     expect(rating).toHaveLength(1);
   });
 
-  it('passes the rating attribute to the `Rating` component', () => {
+  it('Será validado se a avaliação do filme é renderizada com o valor correto', () => {
     const { getByTestId } = render(<MovieCard movie={movie} />);
     const startRating = getByTestId('rating');
 

@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 
 import MovieList from './MovieList';
 
-describe('<MovieList /> component', () => {
+describe('Verifica o componente <MovieList />', () => {
   const movies = [
     {
       title: 'An awesome title',
@@ -35,11 +35,11 @@ describe('<MovieList /> component', () => {
     },
   ];
 
-  it('renders without crashing', () => {
+  it('Será validado se o componente `MovieList` é renderizado com sucesso', () => {
     render(<MovieList movies={movies} />);
   });
 
-  it('renders a `MovieCard` component for each object in the array', () => {
+  it('Será validado que um componente `MovieCard` é renderizado para cada filme passado como `props`', () => {
     const { getAllByTestId } = render(<MovieList movies={movies} />);
     const movieCards = getAllByTestId('movie-card');
 
