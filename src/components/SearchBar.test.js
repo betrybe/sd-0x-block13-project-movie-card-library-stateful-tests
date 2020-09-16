@@ -144,7 +144,7 @@ describe('Verifica se o componente <SearchBar /> renderiza um select de gênero'
     expect(props.onSelectedGenreChange).toHaveBeenCalledTimes(1);
   });
 
-  it('Será validado se são renderizadas 4 options dentro do select com os textos e valores, respectivamente: Todos e \'\', Ação e action, Comédia e comedy, Suspense e thriller ', () => {
+  it("Será validado se são renderizadas 4 options dentro do select com os textos e valores, respectivamente: Todos e '', Ação e action, Comédia e comedy, Suspense e thriller ", () => {
     const genreOptions = [
       { text: 'Todos', value: '' },
       { text: 'Ação', value: 'action' },
