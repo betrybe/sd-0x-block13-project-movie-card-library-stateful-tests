@@ -32,22 +32,22 @@ let sendButton;
 
 
 beforeEach(() => {
-  const { getAllByTestId, getByTestId } = render(<AddMovie onClick={onClick} />);
-  form = getAllByTestId('add-movie-form');
-  titleInput = getByTestId('title-input');
-  titleInputLabel = getByTestId('title-input-label');
-  subtitleInput = getByTestId('subtitle-input');
-  subtitleInputLabel = getByTestId('subtitle-input-label');
-  imageInput = getByTestId('image-input');
-  imageInputLabel = getByTestId('image-input-label');
-  storylineInput = getByTestId('storyline-input');
-  storylineInputLabel = getByTestId('storyline-input-label');
-  ratingInput = getByTestId('rating-input');
-  ratingInputLabel = getByTestId('rating-input-label');
-  genreInput = getByTestId('genre-input');
-  genreInputLabel = getByTestId('genre-input-label');
-  genreOptions = getAllByTestId('genre-option');
-  sendButton = getByTestId('send-button');
+  const { queryAllByTestId, queryByTestId } = render(<AddMovie onClick={onClick} />);
+  form = queryAllByTestId('add-movie-form');
+  titleInput = queryByTestId('title-input');
+  titleInputLabel = queryByTestId('title-input-label');
+  subtitleInput = queryByTestId('subtitle-input');
+  subtitleInputLabel = queryByTestId('subtitle-input-label');
+  imageInput = queryByTestId('image-input');
+  imageInputLabel = queryByTestId('image-input-label');
+  storylineInput = queryByTestId('storyline-input');
+  storylineInputLabel = queryByTestId('storyline-input-label');
+  ratingInput = queryByTestId('rating-input');
+  ratingInputLabel = queryByTestId('rating-input-label');
+  genreInput = queryByTestId('genre-input');
+  genreInputLabel = queryByTestId('genre-input-label');
+  genreOptions = queryAllByTestId('genre-option');
+  sendButton = queryByTestId('send-button');
 });
 
 
