@@ -35,11 +35,11 @@ describe('Verifica o componente <MovieList />', () => {
     },
   ];
 
-  it('Será validado se o componente `MovieList` é renderizado com sucesso', () => {
+  it('Renderize o componente', () => {
     render(<MovieList movies={movies} />);
   });
 
-  it('Será validado que um componente `MovieCard` é renderizado para cada filme passado como `props`', () => {
+  it('Renderize um componente `<MovieCard />` para cada filme passado como prop', () => {
     const { getAllByTestId } = render(<MovieList movies={movies} />);
     const movieCards = getAllByTestId('movie-card');
 

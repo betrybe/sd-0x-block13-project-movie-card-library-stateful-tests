@@ -13,25 +13,25 @@ describe('Verifica o componente <MovieCard />', () => {
   };
 
 
-  it('Será validadado se o componente é renderizado com sucesso', () => {
+  it('Renderize o componente', () => {
     render(<MovieCard movie={movie} />);
   });
-  
-  it('Será validado se o a imagem do filme é renderizada dentro de uma tag "img"', () => {
+
+  it('Renderize a imagem do filme dentro de uma tag "img"', () => {
     const { getByRole } = render(<MovieCard movie={movie} />);
     const image = getByRole('img');
 
     expect(image).toHaveAttribute('src', 'images/movie_1');
   });
 
-  it('Será validado se o título do filme é renderizado com sucesso', () => {
+  it('Renderize o título do filme', () => {
     const { getByText } = render(<MovieCard movie={movie} />);
 
     const title = getByText('Movie Title 1');
     expect(title).toBeInTheDocument();
   });
 
-  it('Será validado se o subtítulo do filme é renderizado com sucesso', () => {
+  it('Renderize o subtítulo do filme', () => {
     const { getByText } = render(<MovieCard movie={movie} />);
 
     const subtitle = getByText('Movie Subtitle 1');
@@ -39,20 +39,20 @@ describe('Verifica o componente <MovieCard />', () => {
   });
 
 
-  it('Será validado se a sinopse do filme é renderizada com sucesso', () => {
+  it('Renderize a sinopse do filme', () => {
     const { getByText } = render(<MovieCard movie={movie} />);
     const storyline = getByText('Movie Storyline 1');
     expect(storyline).toBeInTheDocument();
   });
 
-  it('Será validado se a avaliação do filme é renderizada com sucesso', () => {
+  it('Renderize a avaliação do filme', () => {
     const { getAllByTestId } = render(<MovieCard movie={movie} />);
     const rating = getAllByTestId('rating');
 
     expect(rating).toHaveLength(1);
   });
 
-  it('Será validado se a avaliação do filme é renderizada com o valor correto', () => {
+  it('Renderize a avaliação do filme com o valor correto', () => {
     const { getByTestId } = render(<MovieCard movie={movie} />);
     const startRating = getByTestId('rating');
 
