@@ -36,65 +36,61 @@ const movies = [
 ];
 
 
-describe('Verifica o componente <MovieLibrary />', () => {
-  it('Será validado se o componente é renderizado com sucesso', () => {
+describe('15 - Crie um componente chamado `<MovieLibrary />`', () => {
+  it('Renderize o componente', () => {
     render(<MovieLibrary movies={movies} />);
   });
 });
 
-describe('Verifica o estado inicial do component <MovieLibrary />', () => {
-
-  
-  it('Será validado se o `searchText` é inicializado com uma string vazia', () => {
+describe('16 - Configure o estado inicial do componente `MovieLibray`', () => {
+  it('Defina o estado inicial de `searchText` como uma string vazia', () => {
     const { getByTestId } = render(<MovieLibrary movies={movies} />);
     const searchText = getByTestId('text-input');
     expect(searchText).toHaveValue('');
   });
-  
-  it('Será validado se o `bookmarkedOnly` é inicializado com o boleano `falso`', () => {
+
+  it('Defina o estado inicial de `bookmarkedOnly` como o boleano `falso`', () => {
     const { getByTestId } = render(<MovieLibrary movies={movies} />);
     const bookmarkedOnly = getByTestId('checkbox-input');
     expect(bookmarkedOnly).not.toBeChecked();
   });
-  
-  it('Será validado se o `selectedGenre` é inicializado com uma string vazia', () => {
+
+  it('Defina o estado inicial de `selectedGenre` como uma string vazia', () => {
     const { getByTestId } = render(<MovieLibrary movies={movies} />);
     const selectInput = getByTestId('select-input');
     expect(selectInput).toHaveValue('');
   });
-  
-  it('Será validado se o todos os `movies` são renderezidados.', () => {
+
+  it('Renderize todos os filmes passados pela prop `movies`', () => {
     const { getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const movieCards = getAllByTestId('movie-card');
     expect(movieCards).toHaveLength(movies.length);
   });
 });
 
-describe('Verifica se o componente <MovieLibrary /> renderiza o componente <SearchBar />', () => {
-  it('Será validado se um componente `SearchBar` é renderizado', () => {
+describe('17 - Renderize `<SearchBar />` dentro de `<MovieLibrary />`', () => {
+  it('Renderize o componente `<SearchBar />`', () => {
     const { getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const searchBar = getAllByTestId('search-bar-form');
     expect(searchBar).toHaveLength(1);
   });
 
-  it('Será validado se o estado da `SearchBar` muda quando quem usa digita algo', () => {
+  it('Altere o estado da `<SearchBar />` quando algo for digitado nela', () => {
     const { getByTestId } = render(<MovieLibrary movies={movies} />);
     const searchText = getByTestId('text-input');
     event.type(searchText, 'My Search Text');
 
-
     expect(searchText).toHaveValue('My Search Text');
   });
 
-
-  it('Será validado que é possivel selecionar a opção de filtrar por favoritos`', () => {
+  it('Disponibilize a opção de filtrar por favoritos', () => {
     const { getByTestId } = render(<MovieLibrary movies={movies} />);
     const bookmarkedOnly = getByTestId('checkbox-input');
     event.click(bookmarkedOnly);
     expect(bookmarkedOnly).toBeChecked();
   });
 
-  it('Será validado que é possivel escolher uma categoria uma categoria de filme para filtrar', () => {
+  it('Disponibilize a opção de filtrar por categorias', () => {
     const { getByTestId } = render(<MovieLibrary movies={movies} />);
     const selectInput = getByTestId('select-input');
     expect(selectInput).toHaveValue('');
@@ -105,14 +101,14 @@ describe('Verifica se o componente <MovieLibrary /> renderiza o componente <Sear
   });
 });
 
-describe('Verifica se o componente <MovieLibrary /> renderiza o componente <MovieList />', () => {
-  it('Será validado que o componente `MovieList` é renderizado com sucesso', () => {
+describe('18 - Renderize `<MovieList />` dentro de `<MovieLibrary />`', () => {
+  it('Renderize o componente `<MovieList />`', () => {
     const { getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const movieList = getAllByTestId('movie-list');
     expect(movieList).toHaveLength(1);
   });
 
-  it('Será validado se a barra de buscas filtra os filmes por titulo', () => {
+  it('Filtre os filmes por título de acordo com o que for digitado na barra de busca', () => {
     const { getByTestId, getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const textInput = getByTestId('text-input');
 
@@ -125,7 +121,7 @@ describe('Verifica se o componente <MovieLibrary /> renderiza o componente <Movi
     expect(movieCardTitle).toHaveTextContent(movies[0].title);
   });
 
-  it('Será validado se a barra de buscas filtra os filmes por subtítulo', () => {
+  it('Filtre os filmes por subtítulo de acordo com o que for digitado na barra de busca', () => {
     const { getByTestId, getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const textInput = getByTestId('text-input');
 
@@ -138,7 +134,7 @@ describe('Verifica se o componente <MovieLibrary /> renderiza o componente <Movi
     expect(movieCardTitle).toHaveTextContent(movies[1].title);
   });
 
-  it('Será validado se a barra de buscas filtra os filmes por sinopse', () => {
+  it('Filtre os filmes por sinopse de acordo com o que for digitado na barra de busca', () => {
     const { getByTestId, getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const textInput = getByTestId('text-input');
 
@@ -151,7 +147,7 @@ describe('Verifica se o componente <MovieLibrary /> renderiza o componente <Movi
     expect(movieCardTitle).toHaveTextContent(movies[2].title);
   });
 
-  it('Será validado se a lista de filmes é renderizada sem filtragens se a barra de buscar estiver vazia', () => {
+  it('Renderize a lista de filmes sem filtragens se a barra de buscar estiver vazia', () => {
     const { getByTestId, getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const textInput = getByTestId('text-input');
 
@@ -161,7 +157,7 @@ describe('Verifica se o componente <MovieLibrary /> renderiza o componente <Movi
     expect(movieCard).toHaveLength(3);
   });
 
-  it('Será validado que é possivel filtrar por favoritos', () => {
+  it('Filtre os filmes por favoritos quando a `checkbox` relacionada for selecionada', () => {
     const { getByTestId, getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const bookmarkedOnly = getByTestId('checkbox-input');
 
@@ -174,7 +170,7 @@ describe('Verifica se o componente <MovieLibrary /> renderiza o componente <Movi
   });
 
 
-  it('Será validado que é possivel filtrar por categoria', () => {
+  it('Filtre os filmes por categoria quando a `checkbox` relacionada for selecionada', () => {
     const { getByTestId, getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const select = getByTestId('select-input');
 
@@ -187,14 +183,14 @@ describe('Verifica se o componente <MovieLibrary /> renderiza o componente <Movi
   });
 });
 
-describe('Verifica se o componente <MovieLibrary /> renderiza o componente <AddMovie />', () => {
-  it('Será validado se o componente `AddMovie` é renderizado com sucesso', () => {
+describe('19 - Renderize `<AddMovie />` dentro de `<MovieLibrary />`', () => {
+  it('Renderize o componente `<AddMovie />`', () => {
     const { getAllByTestId } = render(<MovieLibrary movies={movies} />);
     const addMovieForm = getAllByTestId('add-movie-form');
     expect(addMovieForm).toHaveLength(1);
   });
 
-  it('Será validado se é possível adicionar um novo filme a lista de filmes', () => {
+  it('Adicione, após preenchimento do formulário e clique no botão de enviar, o novo filme à lista de filmes', () => {
     const { getByTestId, getAllByTestId } = render(<MovieLibrary movies={movies} />);
 
     const newMovie = {
