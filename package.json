@@ -6,8 +6,8 @@
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-scripts": "3.4.0",
-    "acorn": ">=7.1.1",
-    "minimist": ">=1.2.3"
+    "acorn": "7.1.1",
+    "minimist": "1.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
