@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import event from '@testing-library/user-event';
-import AddMovie from './AddMovie';
+import AddMovie from '../components/AddMovie';
 
 const initialState = {
   subtitle: '',
@@ -30,9 +30,12 @@ let genreInputLabel;
 let genreOptions;
 let sendButton;
 
+const movieHarryPotter = 'Harry Potter I';
+const subtitleMagical = 'Magical subtitle';
+const inputStoryline = 'The boy who lived.';
 
 beforeEach(() => {
-  const { queryAllByTestId, queryByTestId } = render(<AddMovie onClick={onClick} />);
+  const { queryAllByTestId, queryByTestId } = render(<AddMovie onClick={ onClick } />);
   form = queryAllByTestId('add-movie-form');
   titleInput = queryByTestId('title-input');
   titleInputLabel = queryByTestId('title-input-label');
@@ -50,12 +53,11 @@ beforeEach(() => {
   sendButton = queryByTestId('send-button');
 });
 
-
 describe('6 - Crie um componente chamado `<AddMovie />`', () => {
   it('Renderize o componente', () => {
-    render(<AddMovie onClick={() => jest.fn()} />);
+    render(<AddMovie onClick={ () => jest.fn() } />);
   });
-})
+});
 
 describe('7 - Renderize um formulário dentro de `<AddMovie />`', () => {
   it('Renderize 1, e apenas 1, form', () => {
@@ -161,9 +163,10 @@ describe('12 - Renderize um `input` do tipo `number` dentro do formulário em `<
   });
 
   it('Altere o valor do input de avaliação quando algo é digitado nele', () => {
+    const expectedValue = 1.5;
     event.type(ratingInput, '1.5');
 
-    expect(ratingInput).toHaveValue(1.5);
+    expect(ratingInput).toHaveValue(expectedValue);
   });
 });
 
@@ -174,7 +177,6 @@ describe('13 - Renderize um `select` do formulário em `<AddMovie />` para selec
     { value: 'thriller', text: 'Suspense' },
   ];
 
-
   it('Renderize um select com 3 opções de genero de filme', () => {
     expect(genreInput).toBeInTheDocument();
     expect(genreOptions).toHaveLength(options.length);
@@ -184,7 +186,6 @@ describe('13 - Renderize um `select` do formulário em `<AddMovie />` para selec
     expect(genreInputLabel).toBeInTheDocument();
     expect(genreInputLabel).toHaveTextContent('Gênero');
   });
-
 
   it('Será validado se todas as opções no select tem o texto e o valor esperados, que são, respectivamente: Ação e action, Comédia e comedy, Suspense e thriller', () => {
     genreOptions.forEach((option, index) => {
@@ -209,10 +210,10 @@ describe('14 - Renderize um botão do formulário em `<AddMovie />` para fazer u
   });
 
   it('Será validado se o evento onClick é chamado ao se clicar no botão.', () => {
-    event.type(titleInput, 'Harry Potter I');
-    event.type(subtitleInput, 'Magical subtitle');
-    fireEvent.change(storylineInput, { target: { value: 'The boy who lived.' } });
-    event.type(storylineInput, 'The boy who lived.');
+    event.type(titleInput, movieHarryPotter);
+    event.type(subtitleInput, subtitleMagical);
+    fireEvent.change(storylineInput, { target: { value: `${inputStoryline}` } });
+    event.type(storylineInput, inputStoryline);
     event.type(ratingInput, '3.5');
 
     event.click(sendButton);
@@ -221,16 +222,17 @@ describe('14 - Renderize um botão do formulário em `<AddMovie />` para fazer u
   });
 
   it('Será validado se o estado dos inputs volta ao inicial depois que o botão de adicionar é clicado.', () => {
-    event.type(titleInput, 'Harry Potter I');
-    event.type(subtitleInput, 'Magical subtitle');
-    fireEvent.change(storylineInput, { target: { value: 'The boy who lived.' } });
+    const expectedRating = 3.5;
+    event.type(titleInput, movieHarryPotter);
+    event.type(subtitleInput, subtitleMagical);
+    fireEvent.change(storylineInput, { target: { value: `${inputStoryline}` } });
     event.type(ratingInput, '3.5');
     event.selectOptions(genreInput, 'comedy');
 
-    expect(titleInput).toHaveValue('Harry Potter I');
-    expect(subtitleInput).toHaveValue('Magical subtitle');
-    expect(storylineInput).toHaveValue('The boy who lived.');
-    expect(ratingInput).toHaveValue(3.5);
+    expect(titleInput).toHaveValue(movieHarryPotter);
+    expect(subtitleInput).toHaveValue(subtitleMagical);
+    expect(storylineInput).toHaveValue(inputStoryline);
+    expect(ratingInput).toHaveValue(expectedRating);
     expect(genreInput).toHaveValue('comedy');
 
     event.click(sendButton);
