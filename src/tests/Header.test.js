@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import Header from './Header';
+import Header from '../components/Header';
 
 describe('Verifica o componente <Header />', () => {
   it('Renderize o componente', () => {
